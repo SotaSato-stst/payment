@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "merpay/application/settlement/proto/settlement";
+
+package settlement;
+
+service Clearing {
+    rpc PostClearing (PostClearingRequest) returns (PostClearingResponse);
+}
+
+message PostClearingRequest {
+    string payment_type = 1;
+    int32 partner_id = 2;
+    int32 amount = 3;
+}
+
+message PostClearingResponse {
+    int32 commission = 1;
+}
