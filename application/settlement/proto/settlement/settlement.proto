@@ -15,5 +15,10 @@ message PostClearingRequest {
 }
 
 message PostClearingResponse {
-    int32 commission = 1;
+    reserved 1;
+    Commission commission = 2;
+}
+
+message Commission {
+    int32 amount = 1;
 }

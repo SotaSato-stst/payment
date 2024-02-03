@@ -21,7 +21,7 @@ type server struct {
 }
 
 func (s *server) PostClearing(ctx context.Context, in *pb.PostClearingRequest) (*pb.PostClearingResponse, error) {
-	return &pb.PostClearingResponse{Commission: 333}, nil
+	return &pb.PostClearingResponse{Commission: &pb.Commission{Amount: 111}}, nil
 }
 
 func main() {
