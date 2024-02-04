@@ -5,8 +5,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
+
+	pb "merpay/settlement/proto/settlement"
 	"net"
-	pb "settlement/proto/settlement"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

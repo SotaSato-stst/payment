@@ -1,4 +1,4 @@
-module settlement
+module merpay/settlement
 
 go 1.21.0
 
