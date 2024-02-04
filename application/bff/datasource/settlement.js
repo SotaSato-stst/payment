@@ -5,7 +5,7 @@ const ProtoPath = './proto/settlement.proto'
 const packageDefinition = protoLoader.loadSync(ProtoPath)
 const settlement_proto = grpc.loadPackageDefinition(packageDefinition).settlement
 
-const clientUri = process.env.CATALOGUE_CLIENT_URI || "localhost:50051"
+const clientUri = process.env.SETTLEMENT_CLIENT_URI || "localhost:50051"
 console.log(clientUri)
 
 const client = new settlement_proto.Clearing(

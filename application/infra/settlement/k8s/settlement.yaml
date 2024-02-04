@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: settlement
+spec:
+  selector:
+    app: settlement
+  ports:
+  - name: grpc-settlement
+    protocol: TCP
+    port: 50051
+    targetPort: 50051
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settlement
+  labels:
+    app: settlement
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: settlement
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: settlement
+        version: v1
+    spec:
+      containers:
+      - name: settlement
+        image: merpay-ms-dev/settlement:0.1
+        ports:
+        - containerPort: 50051
