@@ -36,7 +36,19 @@ spec:
       - name: bff
         image: merpay-ms-dev/bff:0.1
         env:
-        - name: SETTLEMENT_CLIENT_URI
+        - name: CATALOGUE_CLIENT_URI
           value: "settlement:50051"
         ports:
         - containerPort: 4000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 4000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 4000
+          initialDelaySeconds: 5
+          periodSeconds: 5

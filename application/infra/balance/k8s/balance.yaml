@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: balance
+spec:
+  selector:
+    app: balance
+  ports:
+  - port: 5672
+    name: tcp-rabbitmq
+    targetPort: 5672
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: balance
+  labels:
+    app: balance
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: balance
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: balance
+        version: v1
+    spec:
+      containers:
+      - name: balance
+        image: merpay-ms-dev/balance:0.1
+        env:
+        - name: RABBITMQ
+          value: "amqp://guest:guest@rabbitmq:5672/"
+        ports:
+        - containerPort: 5672

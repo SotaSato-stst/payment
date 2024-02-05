@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -15,7 +16,13 @@ func failOnError(err error, msg string) {
 
 func main() {
 	// RabbitMQ サーバーに接続
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	rabbitmqUri := os.Getenv("RABBITMQ")
+	if rabbitmqUri == "" {
+		rabbitmqUri = "amqp://guest:guest@localhost:5672/"
+	}
+	// RabbitMQ サーバーに接続
+	conn, err := amqp.Dial(rabbitmqUri)
+
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: settlement-db
+spec:
+  selector:
+    app: settlement-db
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settlement-db
+  labels:
+    app: settlement-db
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: settlement-db
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: settlement-db
+        version: v1
+    spec:
+      containers:
+      - name: settlement-db
+        image: merpay-ms-dev/settlement-db:0.1
+        ports:
+        - containerPort: 3306
