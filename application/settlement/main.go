@@ -27,4 +27,6 @@ func main() {
 		log.Fatalf("failed to serve: %v", err)
 	}
 
+	// TODO: 非同期処理の実装
+	// TODO: Domainの実装
 }
