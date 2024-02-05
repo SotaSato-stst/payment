@@ -17,5 +17,6 @@ func NewServer(cs port.ClearingService) *Server {
 	}
 }
 func (s *Server) PostClearing(ctx context.Context, in *pb.PostClearingRequest) (*pb.PostClearingResponse, error) {
-	return &pb.PostClearingResponse{Commission: &pb.Commission{Amount: 111}}, nil
+	amount, _ := s.cs.CalcCommission()
+	return &pb.PostClearingResponse{Commission: &pb.Commission{Amount: int32(amount)}}, nil
 }
