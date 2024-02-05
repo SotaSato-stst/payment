@@ -1,29 +1,18 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
 
-	pb "merpay/settlement/proto/settlement"
 	"net"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 )
 
 var (
 	port = flag.Int("port", 50051, "The server port")
 )
-
-type server struct {
-	pb.UnimplementedClearingServer
-}
-
-func (s *server) PostClearing(ctx context.Context, in *pb.PostClearingRequest) (*pb.PostClearingResponse, error) {
-	return &pb.PostClearingResponse{Commission: &pb.Commission{Amount: 111}}, nil
-}
 
 func main() {
 	flag.Parse()
@@ -31,14 +20,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	// gRPCサーバーの生成
 	s := grpc.NewServer()
-	// 自動生成された関数に、サーバと実際に処理を行うメソッドを実装したハンドラを設定
-	pb.RegisterClearingServer(s, &server{})
-	// gRPCサーバーにリフレクションサービスを登録
-	reflection.Register(s)
+	RegistService(s)
 	log.Printf("server listening at %v", lis.Addr())
-	// サーバーを起動し、エラー発生時にはエラーメッセージを出力
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
