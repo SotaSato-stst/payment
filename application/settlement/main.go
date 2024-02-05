@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	md "merpay/settlement/middleware"
 
 	"net"
 
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	RegistService(s)
+	md.RegistService(s)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

@@ -1,4 +1,4 @@
-package main
+package middleware
 
 import (
 	c "merpay/settlement/adapter/http"
