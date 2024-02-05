@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"log"
 	md "merpay/settlement/middleware"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"net"
 
@@ -28,6 +31,16 @@ func main() {
 	hsrv := health.NewServer()
 	hsrv.SetServingStatus("", healthpb.HealthCheckResponse_SERVING)
 	healthpb.RegisterHealthServer(s, hsrv)
+
+	var stop = make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGTERM)
+	signal.Notify(stop, syscall.SIGINT)
+
+	go func() {
+		sig := <-stop
+		fmt.Printf("failed to listen: %v", sig)
+		s.GracefulStop()
+	}()
 
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
