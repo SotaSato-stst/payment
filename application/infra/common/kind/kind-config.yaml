@@ -18,3 +18,6 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
+  - containerPort: 30801
+    hostPort: 4000
+    protocol: TCP

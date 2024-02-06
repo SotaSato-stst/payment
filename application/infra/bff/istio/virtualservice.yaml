@@ -10,9 +10,9 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /bff/
-    rewrite:
-      uri: /
+        prefix: /
     route:
     - destination:
+        port:
+          number: 4000
         host: bff

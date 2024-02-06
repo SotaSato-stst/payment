@@ -25,6 +25,14 @@ istio_deploy:
 	kubectl apply -f ./application/infra/bff/istio/virtualservice.yaml;\
 	kubectl apply -f ./application/infra/common/istio/ingress-gateway.yaml
 
+delete_istio_security:
+	kubectl delete -f ./application/infra/common/istio/request-authentication-keycloak.yaml;\
+	kubectl delete -f ./application/infra/common/istio/authorization-policy-keycloak.yaml
+
+deploy_istio_security:
+	kubectl apply -f ./application/infra/common/istio/request-authentication-keycloak.yaml;\
+	kubectl apply -f ./application/infra/common/istio/authorization-policy-keycloak.yaml
+
 delete_all:
 	kubectl delete -f ./application/infra/bff/k8s/bff.yaml;\
 	kubectl delete -f ./application/infra/settlement/k8s/settlement.yaml;\
