@@ -1,0 +1,27 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true                   # istio-ingressgatewayを有効にする
+        k8s:                            # k8s配下でKubernetesリソースに関する設定を変更する
+          service:
+            type: NodePort              # ServiceリソースをNodePortに変更する
+            ports:
+            - name: status-port
+              port: 15021
+              targetPort: 15021
+            - name: http2
+              nodePort: 30080           # NodePortを30080に設定する。
+              port: 80
+              targetPort: 8080
+            - name: https
+              port: 443
+              targetPort: 8443
+            - name: tcp
+              port: 31400
+              targetPort: 31400
+            - name: tls
+              port: 15443
+              targetPort: 15443

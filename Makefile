@@ -21,6 +21,10 @@ kube_deploy:
 	kubectl apply -f ./application/infra/balance/k8s/balance-db.yaml;\
 	kubectl apply -f ./application/infra/rabbitmq/k8s/rabbitmq.yaml
 
+istio_deploy:
+	kubectl apply -f ./application/infra/bff/istio/virtualservice.yaml;\
+	kubectl apply -f ./application/infra/common/istio/ingress-gateway.yaml
+
 delete_all:
 	kubectl delete -f ./application/infra/bff/k8s/bff.yaml;\
 	kubectl delete -f ./application/infra/settlement/k8s/settlement.yaml;\

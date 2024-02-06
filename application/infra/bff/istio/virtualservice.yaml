@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bff
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - merpay-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /bff/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: bff
