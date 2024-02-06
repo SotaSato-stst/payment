@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: keycloak
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+  - issuer: "http://127.0.0.1:8080/realms/gihyo-ms"
+    jwksUri: http://keycloak.keycloak.svc.cluster.local:8080/realms/gihyo-ms/protocol/openid-connect/certs
+    fromHeaders:
+    - name: Authorization
+      prefix: "Bearer "
+    forwardOriginalToken: true

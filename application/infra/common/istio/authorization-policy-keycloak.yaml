@@ -1,0 +1,20 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: keycloak
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        notPaths: ["/bff/*"]
+  - to:
+    - operation:
+        paths: ["/bff/*"]
+    when:
+    - key: request.auth.principal
+      values: ["*"]
