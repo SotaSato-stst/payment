@@ -16,6 +16,10 @@ spec:
               nodePort: 30080           # NodePortを30080に設定する。
               port: 80
               targetPort: 8080
+            - name: tcp2
+              nodePort: 30801           # NodePortを30080に設定する。
+              port: 4000
+              targetPort: 4000
             - name: https
               port: 443
               targetPort: 8443

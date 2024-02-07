@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settlement-v2
+  labels:
+    app: settlement
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: settlement
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: settlement
+        version: v2
+    spec:
+      containers:
+      - name: settlement
+        image: merpay-ms-dev/settlement:0.2
+        env:
+        - name: DATABASE
+          value: settlement_user:default_password@tcp(settlement-db:5432)/settlementdb
+        ports:
+        - containerPort: 50051
+        livenessProbe:
+          grpc:
+            port: 50051
+          initialDelaySeconds: 10
+        readinessProbe:
+          grpc:
+            port: 50051
+          initialDelaySeconds: 10

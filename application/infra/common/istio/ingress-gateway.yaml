@@ -12,3 +12,9 @@ spec:
       protocol: HTTP
     hosts:
     - "*"
+  - port:
+      number: 4000
+      name: tcp
+      protocol: TCP
+    hosts:
+    - "*"
