@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: settlement
+spec:
+  host: settlement
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN # ラウンドロビンで負荷分散
+  subsets:
+  - name: v1      # サブセットv1
+    labels:       # version=v1というラベルを持つPodにルーティング
+      version: v1
+  - name: v2      # サブセットv2
+    labels:       # version=v2というラベルを持つPodにルーティング
+      version: v2

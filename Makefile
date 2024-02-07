@@ -36,6 +36,8 @@ deploy_gw:
 	kubectl apply -f ./application/infra/common/istio/ingress-gateway.yaml
 deploy_vs:
 	kubectl apply -f ./application/infra/bff/istio/virtualservice.yaml
+deploy_dr:
+	kubectl apply -f application/infra/bff/istio/destinationrule.yaml
 delete_all:
 	kubectl delete -f ./application/infra/bff/k8s/bff.yaml;\
 	kubectl delete -f ./application/infra/settlement/k8s/settlement.yaml;\
